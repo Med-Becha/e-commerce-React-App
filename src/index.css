@@ -1,0 +1,130 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  padding-top: 200px;
+  padding-bottom: 250px;
+
+  /* background-image: linear-gradient(135deg, #97ABFF 10%, rgb(188, 196, 255) 100%); */
+  
+}
+
+.backgroundNavbar,
+footer {
+  color: #EF6C00;
+  background-color: #495057;
+}
+.text-1{
+  color: #f9b71f;
+
+}
+.bgcolor{
+  background-color: #495057;
+}
+
+footer {
+
+  position: absolute;
+  bottom: 0;
+  z-index: 100;
+  width: 100%;
+
+
+}
+
+.copyright-text {
+  font-size: 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chat-btn {
+  position: fixed;
+  right: 14px;
+  bottom: 60px;
+  cursor: pointer;
+  background-color: #f9b71f;
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+  color: #fff;
+  font-size: 22px;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-btn .close {
+  display: none;
+}
+
+#check:checked~.chat-btn i {
+  display: block;
+}
+
+#check:checked~.chat-btn .comment {
+  display: none;
+}
+
+#check {
+  display: none !important;
+}
+
+#check:checked~.chat-wrapper {
+  opacity: 1;
+}
+
+.chat-wrapper {
+  opacity: 0;
+  position: fixed;
+  right: 20px;
+  bottom: 112px;
+  z-index: 200;
+  width: 300px;
+  transition: all 0.4s;
+  background-color: #ededf3;
+  border-radius: 5px;
+
+}
+
+.chat-header {
+  background-color: #495057;
+  padding: 13px;
+  margin-bottom: 10px;
+  border-radius: 5px 5px 0px 0px;
+  color: #fff;
+}
+
+
+.chat-form {
+  padding: 15px;
+}
+
+.chat-form input,
+.chat-form textarea,
+.chat-form button {
+  margin-bottom: 10px;
+}
+
+.chat-form textarea {
+  resize: none;
+}
+
+.form-control:focus,
+.btn:focus {
+  box-shadow: none;
+}
+
+.cht-msg {
+  max-height: 300px;
+  overflow: auto;
+}
+.productImage{
+ 
+  object-fit: cover;
+  height: 100%;
+   display:"block" 
+}
