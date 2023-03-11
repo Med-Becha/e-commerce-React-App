@@ -8,6 +8,7 @@ import {
   Table,
   Alert,
   Image,
+  Toast,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect, Fragment, useRef } from "react";
@@ -63,7 +64,8 @@ const EditProductPageComponent = ({
   useEffect(() => {
     fetchProduct(id)
       .then((product) => setProduct(product))
-      .catch((er) => console.log(er));
+      .catch((er) => Toast("error"));
+      //eslint-disable-next-line 
   }, [id, imageRemoved, imageUploaded]);
 
   const handleSubmit = (event) => {
@@ -117,6 +119,7 @@ const EditProductPageComponent = ({
     }
     setCategoryChoosen(product.category);
     setAttributesTable(product.attrs);
+    //eslint-disable-next-line
   }, [product]);
 
   

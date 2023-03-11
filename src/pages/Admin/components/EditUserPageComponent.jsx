@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const EditUserPageComponent = ({ updateUserApiRequest, fetchUser }) => {
   const [validated, setValidated] = useState(false);
@@ -43,7 +44,8 @@ const EditUserPageComponent = ({ updateUserApiRequest, fetchUser }) => {
             setUser(data);
             setIsAdminState(data.isAdmin);
         })
-        .catch((er) => console.log(er.response.data.message ? er.response.data.message : er.response.data));
+        .catch((er) => toast("error"));
+        //eslint-disable-next-line
     }, [id])
 
   return (

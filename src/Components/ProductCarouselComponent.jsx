@@ -1,15 +1,11 @@
-// import { Carousel } from "react-bootstrap";
-// import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from 'swiper';
+import { Autoplay, } from 'swiper';
 import "./styles.css";
 import 'swiper/css';
 
 const ProductCarouselComponent = ({ bestSellers }) => {
-  
-  
   const progressCircle = useRef(null);
   const progressContent = useRef(null);
   const onAutoplayTimeLeft = (s, time, progress) => {
@@ -18,7 +14,6 @@ const ProductCarouselComponent = ({ bestSellers }) => {
   };
 
   return bestSellers.length > 0 ? (
-
     <>
       <Swiper
          spaceBetween={30}
@@ -31,7 +26,7 @@ const ProductCarouselComponent = ({ bestSellers }) => {
            clickable: true,
          }}
          navigation={false}
-         modules={[Autoplay, Pagination, Navigation]}
+         modules={[Autoplay, ]}
          onAutoplayTimeLeft={onAutoplayTimeLeft}
          className="mySwiper"
       >
@@ -48,11 +43,10 @@ const ProductCarouselComponent = ({ bestSellers }) => {
                 src={item.images ? item.images[0].path : null}
                 alt="First slide"
               />
+              {item.name}
               </Link>
-            </SwiperSlide>
-          
+            </SwiperSlide>     
         ))}
-        
       </Swiper>
     </>
   ) : null;

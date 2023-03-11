@@ -1,4 +1,4 @@
-import { Row, Col, Form } from "react-bootstrap";
+import { Row, Col, Form} from "react-bootstrap";
 import AdminLinksComponent from "../../../Components/Admin/AdminLinksComponent";
 import {
   LineChart,
@@ -10,7 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-
+import {toast } from "react-toastify"
 import { useState, useEffect } from "react";
 
 const AnalyticsPageComponent = ({
@@ -70,6 +70,7 @@ const AnalyticsPageComponent = ({
       }
       socket.on("newOrder", handler);
       return () => socket.off("newOrder", handler);
+      //eslint-disable-next-line 
   }, [setDataForFirstSet, setDataForSecondSet, firstDateToCompare, secondDateToCompare])
 
   useEffect(() => {
@@ -89,9 +90,7 @@ const AnalyticsPageComponent = ({
         setDataForFirstSet(orders);
       })
       .catch((er) =>
-        console.log(
-          er
-        )
+      toast("error", er)
       );
 
     fetchOrdersForSecondDate(abctrl, secondDateToCompare)
@@ -109,11 +108,10 @@ const AnalyticsPageComponent = ({
         setDataForSecondSet(orders);
       })
       .catch((er) =>
-        console.log(
-          er
-        )
+      toast("error" ,er)
       );
     return () => abctrl.abort();
+    //eslint-disable-next-line
   }, [firstDateToCompare, secondDateToCompare]);
 
   const firstDateHandler = (e) => {
@@ -125,7 +123,8 @@ const AnalyticsPageComponent = ({
   };
 
   return (
-    <Row className="m-5">
+    <div className="m-5">
+    <Row >
       <Col md={2}>
         <AdminLinksComponent />
       </Col>
@@ -219,7 +218,7 @@ const AnalyticsPageComponent = ({
           </LineChart>
         </ResponsiveContainer>
       </Col>
-    </Row>
+    </Row></div>
   );
 };
 

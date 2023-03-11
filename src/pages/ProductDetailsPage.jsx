@@ -1,9 +1,5 @@
 import ProductDetailsPageComponent from "./components/ProductDetailsPageComponent";
-import { useEffect } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
-
-
 import { addToCart } from "../redux/actions/cartActions";
 import axios from 'axios'
 
@@ -18,11 +14,8 @@ const writeReviewApiRequest = async (productId, formInputs) => {
 }
 
 const ProductDetailsPage = () => {
-
     const dispatch = useDispatch()
-
     const userInfo = useSelector((state) => state.userRegisterLogin.userInfo);
-
 
   return <ProductDetailsPageComponent  addToCartReduxAction={addToCart} reduxDispatch={dispatch} getProductDetails={getProductDetails} userInfo={userInfo}  writeReviewApiRequest={writeReviewApiRequest} />;
 };

@@ -5,20 +5,23 @@ html {
 
 body {
   padding-top: 200px;
-  padding-bottom: 250px;
+  padding-bottom: 500px;
 
   /* background-image: linear-gradient(135deg, #97ABFF 10%, rgb(188, 196, 255) 100%); */
   
 }
 
 .backgroundNavbar,
-footer {
+.footer {
   color: #EF6C00;
   background-color: #495057;
 }
 .text-1{
   color: #f9b71f;
 
+}
+.border-1{
+  border-color: #f9b71f;
 }
 .bgcolor{
   background-color: #495057;
@@ -45,16 +48,17 @@ footer {
   right: 14px;
   bottom: 60px;
   cursor: pointer;
-  background-color: #f9b71f;
+  background-color:#495057 ;
   border-radius: 50px;
   width: 50px;
   height: 50px;
-  color: #fff;
+  color: #f9b71f;
   font-size: 22px;
   z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: #EF6C00 1px solid;
 }
 
 .chat-btn .close {
@@ -92,10 +96,10 @@ footer {
 
 .chat-header {
   background-color: #495057;
-  padding: 13px;
-  margin-bottom: 10px;
+  padding: 5px;
+  margin-bottom: 5px;
   border-radius: 5px 5px 0px 0px;
-  color: #fff;
+  
 }
 
 
@@ -106,7 +110,7 @@ footer {
 .chat-form input,
 .chat-form textarea,
 .chat-form button {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 .chat-form textarea {
@@ -119,7 +123,8 @@ footer {
 }
 
 .cht-msg {
-  max-height: 300px;
+  max-height: 250px;
+  min-height: 150px;
   overflow: auto;
 }
 .productImage{

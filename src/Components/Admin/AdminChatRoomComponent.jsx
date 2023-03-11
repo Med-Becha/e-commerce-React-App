@@ -1,10 +1,9 @@
 import { Fragment, useState } from "react";
 import { Toast, Form, Button } from "react-bootstrap";
 
-
 const AdminChatRoomComponent = () => {
-    const [toast1, closeToast1] = useState(true)
-    const close1 = () => closeToast1(false)
+  const [toast1, closeToast1] = useState(true);
+  const close1 = () => closeToast1(false);
   return (
     <>
       <Toast show={toast1} onClose={close1} className="ms-4 mb-5 mt-3">
@@ -28,7 +27,9 @@ const AdminChatRoomComponent = () => {
                 className="mb-3"
                 controlId="exampleForm.ControlTextareal"
               >
-                <Form.Label className="text-primary">Write a message</Form.Label>
+                <Form.Label className="text-primary">
+                  Write a message
+                </Form.Label>
                 <Form.Control as="textarea" rows="2" />
               </Form.Group>
               <Button variant="primary" type="submit">

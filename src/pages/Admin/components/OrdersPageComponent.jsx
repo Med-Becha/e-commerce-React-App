@@ -1,4 +1,4 @@
-import { Row, Col, Table, Container } from "react-bootstrap";
+import { Row, Col, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import AdminLinksComponent from "../../../Components/Admin/AdminLinksComponent";
 import { useEffect, useState } from "react";
@@ -15,11 +15,10 @@ const OrdersPageComponent = ({ getOrders }) => {
       .then((orders) => setOrders(orders))
       .catch((err) => dispatch(logout())
       );
-    console.log(orders);
+    //eslint-disable-next-line 
   }, []);
-  console.log(orders);
   return (
-    <Container>
+    <div className="m-5">
       <Row>
         <Col md={2}>
           <AdminLinksComponent />
@@ -57,7 +56,7 @@ const OrdersPageComponent = ({ getOrders }) => {
                         <i className="bi bi-x-lg text-danger"></i>
                       )}
                     </td>
-                    <td>{order.paymentMethod}</td>
+                    <td>{order.paymentMethod === "cod" ? "Paiement a la livraison" : "PayPal"}</td>
                     <td>
                       <Link to={`/admin/order-details/${order._id}`}>Go to order</Link>
                     </td>
@@ -67,7 +66,7 @@ const OrdersPageComponent = ({ getOrders }) => {
           </Table>
         </Col>
       </Row>
-    </Container>
+    </div>
   );
 };
 

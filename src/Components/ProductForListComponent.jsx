@@ -1,21 +1,14 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../redux/actions/cartActions";
-
+;
 const ProductForListComponent = ({
   images,
   name,
   description,
   price,
-  rating,
-  reviewsNumber,
   productId,
 }) => {
-  const dispatch = useDispatch();
-  const addToCartHandler = () => {
-    dispatch(addToCart());
-  };
+
   return (
     <Card style={{ marginTop: "1.5rem", marginBottom: "" }}>
       <Row>

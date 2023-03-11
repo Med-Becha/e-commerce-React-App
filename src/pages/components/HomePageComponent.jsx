@@ -19,22 +19,23 @@ const HomePageComponent = ({ getProducts, getBestsellers }) => {
       getProducts()
       .then((data) => setProducts(data))
       .catch((er) => toast("error", er));
+    //eslint-disable-next-line
   }, [])
 
   return (
-    <div className="p-5">
+    <div className="px-5">
       
       <ProductCarouselComponent bestSellers={bestSellers} />
       
-        <Row xs={1} sm={2} md={3} lg={4} xl={5} className="g-2 mt-1">
+        <Row xs={1} sm={2} md={3} lg={4} xl={5} className="g-2 ">
           
         {products ? products.map((product,idx) => (
           <div key={idx}>
           <Col>
           <Link  className="text-decoration-none text-1" to={`/product-details/${product._id}`} >
           
-          <img className="img-fluid" src={product.images[0].path}  />
-          <h3>{product.name}</h3><span >{product.price} DT</span>
+          <img className="img-fluid" alt={product.name} src={product.images[0].path}  />
+          <h5>{product.name}</h5> <h2 >{product.price} DT</h2>
           </Link>
           </Col>
           </div>

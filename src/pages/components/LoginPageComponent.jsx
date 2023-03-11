@@ -1,6 +1,6 @@
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 
 const LoginPageComponent = ({
@@ -15,7 +15,7 @@ const LoginPageComponent = ({
     loading: false,
   });
 
-  const navigate = useNavigate();
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();

@@ -49,7 +49,7 @@ const CategoryFilterComponent = ({ setCategoriesFromFilter }) => {
 
   return (
     <>
-      <span className="fw-bold">Category</span>
+      <span className="fw-bold">Catégorie</span>
       <Form>
         {categories.map((category, idx) => (
           <div key={idx}>

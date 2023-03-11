@@ -3,7 +3,6 @@ import PaginationComponent from "../../Components/PaginationComponent";
 import ProductForListComponent from "../../Components/ProductForListComponent";
 import SortOptionsComponent from "../../Components/SortOptionsComponent";
 import PriceFilterComponent from "../../Components/filterQueryResultOptions/PriceFilterComponent";
-import RatingFilterComponent from "../../Components/filterQueryResultOptions/RatingFilterComponent";
 import CategoryFilterComponent from "../../Components/filterQueryResultOptions/CategoryFilterComponent";
 import AttributesFilterComponent from "../../Components/filterQueryResultOptions/AttributesFilterComponent";
 
@@ -22,7 +21,6 @@ const ProductListPageComponent = ({ getProducts, categories }) => {
 
   const [filters, setFilters] = useState({}); // collect all filters
   const [price, setPrice] = useState(500);
-  const [ratingsFromFilter, setRatingsFromFilter] = useState({});
   const [categoriesFromFilter, setCategoriesFromFilter] = useState({});
   const [sortOption, setSortOption] = useState("");
   const [paginationLinksNumber, setPaginationLinksNumber] = useState(null);
@@ -80,6 +78,7 @@ const ProductListPageComponent = ({ getProducts, categories }) => {
         toast("error", er.message)
         setError(true);
       });
+      // eslint-disable-next-line 
   }, [categoryName, pageNumParam, searchQuery, filters, sortOption]);
 
   const handleFilters = () => {
@@ -87,7 +86,6 @@ const ProductListPageComponent = ({ getProducts, categories }) => {
     setShowResetFiltersButton(true);
     setFilters({
       price: price,
-      rating: ratingsFromFilter,
       category: categoriesFromFilter,
       attrs: attrsFromFilter,
     });
@@ -100,7 +98,7 @@ const ProductListPageComponent = ({ getProducts, categories }) => {
   };
 
   return (
-    <Container fluid className="mt-4">
+    <Container fluid className="">
       <Row>
         <Col md={3}>
           <ListGroup variant="flush">
@@ -110,11 +108,6 @@ const ProductListPageComponent = ({ getProducts, categories }) => {
             <ListGroup.Item>
               FILTER: <br />
               <PriceFilterComponent price={price} setPrice={setPrice} />
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <RatingFilterComponent
-                setRatingsFromFilter={setRatingsFromFilter}
-              />
             </ListGroup.Item>
             {!location.pathname.match(/\/category/) && (
               <ListGroup.Item>

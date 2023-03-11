@@ -1,4 +1,4 @@
-import { Row, Col, Table, Button, Container } from "react-bootstrap";
+import { Row, Col, Table, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import AdminLinksComponent from "../../../Components/Admin/AdminLinksComponent";
 
@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 const ProductsPageComponent = ({ fetchProducts, deleteProduct }) => {
   const [products, setProducts] = useState([]);
   const [productDeleted, setProductDeleted] = useState(false);
-console.log(products)
   const deleteHandler = async (productId) => {
     if (window.confirm("Are you sure?")) {
       const data = await deleteProduct(productId);
@@ -31,10 +30,11 @@ console.log(products)
         ])
       );
     return () => abctrl.abort();
+    //eslint-disable-next-line 
   }, [productDeleted]);
 
   return (
-    <Container>
+    <div className="m-5">
       <Row>
         <Col md={2}>
           <AdminLinksComponent />
@@ -88,7 +88,7 @@ console.log(products)
           </Table>
         </Col>
       </Row>
-    </Container>
+    </div>
   );
 };
 

@@ -7,28 +7,33 @@ import {
   Form,
   DropdownButton,
   Dropdown,
-  Button,InputGroup
+  Button,
+  InputGroup,
 } from "react-bootstrap";
 import logo from "../logo.png";
-import CategoriesNavBarComponent  from "./CategoriesNavBarComponent";
+import CategoriesNavBarComponent from "./CategoriesNavBarComponent";
 import { LinkContainer } from "react-router-bootstrap";
-import { Link , useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getCategories } from "../redux/actions/categoryActions";
+import socketIOClient from "socket.io-client";
+import { setChatRooms } from "../redux/actions/chatActions";
 
 function HeaderComponent() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userRegisterLogin);
   const itemsCount = useSelector((state) => state.cart.itemsCount);
   const cartSubtotal = useSelector((state) => state.cart.cartSubtotal);
   const { categories } = useSelector((state) => state.getCategories);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchCategoryToggle, setSearchCategoryToggle] = useState("tous les categories");
+  const [searchCategoryToggle, setSearchCategoryToggle] = useState(
+    "tous les categories"
+  );
 
-  useEffect(() => { 
+  useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
 
@@ -36,17 +41,33 @@ function HeaderComponent() {
     if (e.keyCode && e.keyCode !== 13) return;
     e.preventDefault();
     if (searchQuery.trim()) {
-        if (searchCategoryToggle === "tous les categories") {
-            navigate(`/product-list/search/${searchQuery}`);
-        } else {
-            navigate(`/product-list/category/${searchCategoryToggle.replaceAll("/", ",")}/search/${searchQuery}`);
-        }
+      if (searchCategoryToggle === "tous les categories") {
+        navigate(`/product-list/search/${searchQuery}`);
+      } else {
+        navigate(
+          `/product-list/category/${searchCategoryToggle.replaceAll(
+            "/",
+            ","
+          )}/search/${searchQuery}`
+        );
+      }
     } else if (searchCategoryToggle !== "tous les categories") {
-        navigate(`/product-list/category/${searchCategoryToggle.replaceAll("/", ",")}`);
+      navigate(
+        `/product-list/category/${searchCategoryToggle.replaceAll("/", ",")}`
+      );
     } else {
-        navigate("/product-list");
+      navigate("/product-list");
     }
- }
+  };
+
+  useEffect(() => {
+    if (userInfo.isAdmin) {
+      const socket = socketIOClient();
+      socket.on("server sends message from client to admin", ({ message }) => {
+        dispatch(setChatRooms("exampleUser", message));
+      });
+    }
+  }, [userInfo.isAdmin, dispatch]);
   return (
     <div className=" fixed-top">
       <Navbar className="backgroundNavbar">
@@ -85,14 +106,34 @@ function HeaderComponent() {
             </Link>
             {/* 3 */}
             <InputGroup className="mx-2 text-1">
-              <DropdownButton  variant="light" id="dropdown-basic-button" title={searchCategoryToggle}>
-                  <Dropdown.Item className="text-1" onClick={() => setSearchCategoryToggle("tous les categories")}>tous les categories</Dropdown.Item>
+              <DropdownButton
+                variant="light"
+                id="dropdown-basic-button"
+                title={searchCategoryToggle}
+              >
+                <Dropdown.Item
+                  className="text-1"
+                  onClick={() => setSearchCategoryToggle("tous les categories")}
+                >
+                  tous les categories
+                </Dropdown.Item>
                 {categories.map((category, id) => (
-                  <Dropdown.Item className="text-1" key={id} onClick={() => setSearchCategoryToggle(category.name)}>{category.name}</Dropdown.Item>
+                  <Dropdown.Item
+                    className="text-1"
+                    key={id}
+                    onClick={() => setSearchCategoryToggle(category.name)}
+                  >
+                    {category.name}
+                  </Dropdown.Item>
                 ))}
               </DropdownButton>
-              <Form.Control onKeyUp={submitHandler} onChange={(e) => setSearchQuery(e.target.value)} type="text" placeholder="Search in shop ..." />
-              <Button onClick={submitHandler} variant="light" >
+              <Form.Control
+                onKeyUp={submitHandler}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                type="text"
+                placeholder="Search in shop ..."
+              />
+              <Button onClick={submitHandler} variant="light">
                 <i className="bi bi-search  text-1 font-weight-bold"></i>
               </Button>
             </InputGroup>
@@ -117,25 +158,34 @@ function HeaderComponent() {
                     as={Link}
                     to="/user/my-orders"
                   >
-                    My orders
+                    <i className="bi bi-list-ul"> My orders</i>
                   </NavDropdown.Item>
                   <NavDropdown.Item eventKey="/user" as={Link} to="/user">
-                    My profile
+                    <i className="bi bi-person"> My profile</i>
                   </NavDropdown.Item>
-                  <NavDropdown.Item onClick={() => dispatch(logout())}>
-                    Logout
+                  <NavDropdown.Item
+                    onClick={() => dispatch(logout())}
+                    className=" "
+                  >
+                    <i className="bi bi-box-arrow-right"> Logout</i>
                   </NavDropdown.Item>
                 </DropdownButton>
               ) : (
                 <>
                   <LinkContainer to="/login" className="mx-1">
-                    <Button variant="outline-light" className="text-1">
-                      Login
+                    <Button
+                      variant="outline-light"
+                      className="text-1 d-inline-flex"
+                    >
+                      login {"  "} <i className="bi bi-box-arrow-in-right"></i>
                     </Button>
                   </LinkContainer>
                   <LinkContainer to="/register" className="mx-1">
-                    <Button variant="outline-light" className="text-1">
-                      Register
+                    <Button
+                      variant="outline-light"
+                      className="text-1 d-inline-flex"
+                    >
+                      Register <i className="bi bi-person-fill-add "></i>
                     </Button>
                   </LinkContainer>
                 </>
@@ -144,7 +194,7 @@ function HeaderComponent() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <CategoriesNavBarComponent/>
+      <CategoriesNavBarComponent />
     </div>
   );
 }

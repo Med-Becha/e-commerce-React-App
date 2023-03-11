@@ -1,4 +1,3 @@
-
 import "swiper/css";
 import "swiper/css/pagination";
 import React, { useRef,  } from "react";
@@ -6,7 +5,7 @@ import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "./styles2.css";
 import { useNavigate } from "react-router-dom";
-
+import logo from "../logo.png"
 import acer from "./logo/acer.png";
 import appel from "./logo/apple.png";
 import asus from "./logo/asus.png";
@@ -55,44 +54,44 @@ const FooterComponent = () => {
         }}
       >
         <SwiperSlide   className="bg-transparent">
-          <img style={{width:100}} src={acer} alt="" srcset="" />
+          <img style={{width:100}} src={acer} alt="" />
         </SwiperSlide>
         <SwiperSlide className="bg-transparent">
-          <img style={{width:100}} src={appel} alt="" srcset="" />
+          <img style={{width:100}} src={appel} alt="" />
         </SwiperSlide>
         <SwiperSlide className="bg-transparent">
-          <img style={{width:100}} src={asus} alt="" srcset="" />
+          <img style={{width:100}} src={asus} alt=""/>
         </SwiperSlide>
         <SwiperSlide className="bg-transparent">
-          <img style={{width:100}} src={dell} alt="" srcset="" />
+          <img style={{width:100}} src={dell} alt="" />
         </SwiperSlide>
         <SwiperSlide className="bg-transparent">
-          <img style={{width:100}} src={samsung} alt="" srcset="" />
+          <img style={{width:100}} src={samsung} alt="" />
         </SwiperSlide>
         <SwiperSlide  className="bg-transparent">
-          <img style={{width:100}} src={hp} alt="" srcset="" />
+          <img style={{width:100}} src={hp} alt=""  />
         </SwiperSlide>
         <SwiperSlide   className="bg-transparent">
-          <img style={{width:100}} src={lenovo} alt="" srcset="" />
+          <img style={{width:100}} src={lenovo} alt=""  />
         </SwiperSlide>
         <SwiperSlide className="bg-transparent">
-          <img style={{width:100}} src={huawei} alt="" srcset="" />
+          <img style={{width:100}} src={huawei} alt="" />
         </SwiperSlide>
       
         <SwiperSlide className="bg-transparent">
-          <img style={{width:100}} src={oppo} alt="" srcset="" />
+          <img style={{width:100}} src={oppo} alt=""  />
         </SwiperSlide>
        
         <SwiperSlide className="bg-transparent">
-          <img style={{width:100}} src={xiaomi} alt="" srcset="" />
+          <img style={{width:100}} src={xiaomi} alt="xiaomi" />
         </SwiperSlide>
         <SwiperSlide className="bg-transparent">
-          <img style={{width:200}} cla src={msi} alt="" srcset="" />
+          <img style={{width:200}}  src={msi} alt=""  />
         </SwiperSlide>
       </Swiper>
       
-      <div className="d-flex align-items-center justify-content-around p-1 ">
-        <div className=" d-flex">
+      <div className="text-center bgcolor mt-3">
+        <div className="text-center">
           <a
             href="https://www.facebook.com/sparktek"
             className="mx-1"
@@ -110,12 +109,12 @@ const FooterComponent = () => {
             <i className="bi bi-instagram text-light display-6 "></i>
           </a>
         </div>
-        <div className="text-white"></div>
-        <div onClick={()=>navigate("/apropos")} className="text-white copyright-text ">
-          <h1 >
-            {" "}
-            Spark<span className="text-1">-Tek</span>
-          </h1>
+        <div className="text-white m-3">
+          content to be developed
+        </div>
+        <hr />
+        <div onClick={()=>navigate("/apropos")}>
+          <img style={{height:100}} className="p-1" src={logo} alt=""  />
         </div>
       </div>
     </footer>

@@ -1,7 +1,7 @@
 import { Form } from "react-bootstrap";
 
 const AttributesFilterComponent = ({ attrsFilter, setAttrsFromFilter }) => {
-//   console.log(attrsFilter);
+
   return (
     <>
       {attrsFilter &&

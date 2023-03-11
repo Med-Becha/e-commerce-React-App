@@ -1,16 +1,6 @@
-import {
-  Row,
-  Col,
-  Container,
-  Image,
-  ListGroup,
-  Form,
-  Button,
-  Alert,
-} from "react-bootstrap";
-import { Rating } from "react-simple-star-rating";
+import { Row, Col, ListGroup, Form, Button } from "react-bootstrap";
 import AddedToCartMessageComponent from "../../Components/AddedToCartMessageComponent";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -34,22 +24,11 @@ const ProductDetailsPageComponent = ({
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [productReviewed, setProductReviewed] = useState(false);
-
-  const messagesEndRef = useRef(null);
-
+  
   const addToCartHandler = () => {
     reduxDispatch(addToCartReduxAction(id, quantity));
     setShowCartMessage(true);
   };
-
-  useEffect(() => {
-    if (productReviewed) {
-      setTimeout(() => {
-        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-      }, 500);
-    }
-  }, [productReviewed]);
 
   useEffect(() => {
     getProductDetails(id)
@@ -62,31 +41,8 @@ const ProductDetailsPageComponent = ({
           er.response.data.message ? er.response.data.message : er.response.data
         )
       );
-  }, [id, productReviewed]);
-
-  const sendReviewHandler = (e) => {
-    e.preventDefault();
-    const form = e.currentTarget.elements;
-    const formInputs = {
-      comment: form.comment.value,
-      rating: form.rating.value,
-    };
-    if (e.currentTarget.checkValidity() === true) {
-      writeReviewApiRequest(product._id, formInputs)
-        .then((data) => {
-          if (data === "review created") {
-            setProductReviewed("You successfuly reviewed the page!");
-          }
-        })
-        .catch((er) =>
-          setProductReviewed(
-            er.response.data.message
-              ? er.response.data.message
-              : er.response.data
-          )
-        );
-    }
-  };
+    //eslint-disable-next-line
+  }, [id]);
 
   return (
     <div className="m-4 ">
@@ -96,12 +52,17 @@ const ProductDetailsPageComponent = ({
       />
       <Row className="mt-5">
         {loading ? (
-          <h2>Loading product details ...</h2>
+          <h2>
+            Loading product details {" "}
+            <div className="spinner-border" role="status">
+              <span className="sr-only"></span>
+            </div>
+          </h2>
         ) : error ? (
           <h2>{error}</h2>
         ) : (
           <>
-            <Col style={{ zIndex: 1 }} md={4} >
+            <Col style={{ zIndex: 1 }} md={4}>
               <Swiper
                 effect={"cube"}
                 grabCursor={true}
@@ -116,20 +77,19 @@ const ProductDetailsPageComponent = ({
                   disableOnInteraction: false,
                 }}
                 pagination={true}
-                modules={[EffectCube, Pagination ,Autoplay]}
+                modules={[EffectCube, Pagination, Autoplay]}
                 className="mySwiper"
               >
                 <>
                   {product.images
                     ? product.images.map((image, id) => (
                         <SwiperSlide key={id}>
-                          
-                            <img
-                              crossOrigin="anonymous"
-                              className="fluid"
-                              src={`${image.path ?? null}`}
-                            />
-                          
+                          <img
+                            crossOrigin="anonymous"
+                            className="fluid"
+                            src={`${image.path ?? null}`}
+                            alt={image.path}
+                          />
                         </SwiperSlide>
                       ))
                     : null}
@@ -142,14 +102,6 @@ const ProductDetailsPageComponent = ({
                   <ListGroup variant="flush">
                     <ListGroup.Item>
                       <h1>{product.name}</h1>
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                      <Rating
-                        readonly
-                        size={20}
-                        initialValue={product.rating}
-                      />{" "}
-                      ({product.reviewsNumber})
                     </ListGroup.Item>
                     <ListGroup.Item>
                       Price <span className="fw-bold">${product.price}</span>
@@ -191,9 +143,6 @@ const ProductDetailsPageComponent = ({
             </Col>
           </>
         )}
-      </Row>
-      <Row>
-        {console.log("to do random products in product details page from productDetailsPageComponent")}
       </Row>
     </div>
   );

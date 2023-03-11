@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { logout } from "../../../redux/actions/userActions";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const OrderDetailsPageComponent = ({ getOrder, markAsDelivered }) => {
   const { id } = useParams();
@@ -44,6 +45,7 @@ const OrderDetailsPageComponent = ({ getOrder, markAsDelivered }) => {
         setCartItems(order.cartItems);
       })
       .catch((er) => dispatch(logout()));
+      //eslint-disable-next-line
   }, [isDelivered, id]);
   return (
     <Container fluid>
@@ -126,11 +128,7 @@ const OrderDetailsPageComponent = ({ getOrder, markAsDelivered }) => {
                         }
                       })
                       .catch((er) =>
-                        console.log(
-                          er.response.data.message
-                            ? er.response.data.message
-                            : er.response.data
-                        )
+                        toast("error")
                       )
                   }
                   disabled={buttonDisabled}
