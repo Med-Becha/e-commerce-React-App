@@ -20,9 +20,9 @@ const CartPageComponent = ({
   };
 
   return (
-    <div className="mt-5">
+    <div className="text-center">
       <div
-        className="alert alert-primary fw-bold mt-2 mx-1 text-center h3 p-2"
+        className="alert alert-dark fw-bold mx-3 text-center h3 p-2"
         role="alert"
       >
         PANIER
@@ -49,17 +49,17 @@ const CartPageComponent = ({
             <ListGroup>
               <ListGroup.Item>
                 <h3>
-                  Subtotal ({cartItems.length}{" "}
-                  {cartItems.length === 1 ? "Product" : "Products"})
+                Total : {cartItems.length}{" "}
+                  {cartItems.length === 1 ? "Produit" : "produits"}
                 </h3>
               </ListGroup.Item>
               <ListGroup.Item>
-                Price: <span className="fw-bold">{cartSubtotal} DT</span>
+             <h3> Prix: <span className="text-primary">{cartSubtotal} DT</span></h3>
               </ListGroup.Item>
               <ListGroup.Item>
                 <LinkContainer to="/user/cart-details">
-                  <Button disabled={cartSubtotal === 0} type="button">
-                    Proceed To Checkout
+                  <Button disabled={cartSubtotal === 0} className="w-100 " type="button">
+                  Passer à la caisse
                   </Button>
                 </LinkContainer>
               </ListGroup.Item>

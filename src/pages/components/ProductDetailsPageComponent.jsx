@@ -24,7 +24,7 @@ const ProductDetailsPageComponent = ({
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  
+
   const addToCartHandler = () => {
     reduxDispatch(addToCartReduxAction(id, quantity));
     setShowCartMessage(true);
@@ -45,15 +45,15 @@ const ProductDetailsPageComponent = ({
   }, [id]);
 
   return (
-    <div className="m-4 ">
+    <div className="mx-4 ">
       <AddedToCartMessageComponent
         showCartMessage={showCartMessage}
         setShowCartMessage={setShowCartMessage}
       />
-      <Row className="mt-5">
+      <Row className="">
         {loading ? (
           <h2>
-            Loading product details {" "}
+            Loading product details{" "}
             <div className="spinner-border" role="status">
               <span className="sr-only"></span>
             </div>
@@ -99,31 +99,67 @@ const ProductDetailsPageComponent = ({
             <Col md={8}>
               <Row>
                 <Col md={8}>
-                  <ListGroup variant="flush">
+                  <ListGroup variant="">
                     <ListGroup.Item>
-                      <h1>{product.name}</h1>
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                      Price <span className="fw-bold">${product.price}</span>
+                      <h2>{product.name}</h2>
                     </ListGroup.Item>
                     <ListGroup.Item>{product.description}</ListGroup.Item>
+                    {product.price > 400 ? (
+                      <ListGroup.Item className="w-100">
+                        Payez en plusieurs fois:
+                        <table className="w-100 table">
+                          <thead>
+                            <tr>
+                              <th className="">12 mois</th>
+                              <th>9 mois</th>
+                              <th>6 mois</th>
+                              <th>3 mois</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th>
+                                {(
+                                  product.price / 12 +
+                                  (product.price * 10) / 100
+                                ).toFixed(3)}
+                              </th>
+                              <td>
+                                {(
+                                  product.price / 9 +
+                                  (product.price * 8) / 100
+                                ).toFixed(3)}
+                              </td>
+                              <td>
+                                {(
+                                  product.price / 6 +
+                                  (product.price * 6) / 100
+                                ).toFixed(3)}
+                              </td>
+                              <td>{(product.price / 3).toFixed(3)}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </ListGroup.Item>
+                    ) : null}
                   </ListGroup>
                 </Col>
                 <Col md={4}>
                   <ListGroup>
                     <ListGroup.Item>
-                      Status: {product.count > 0 ? "in stock" : "out of stock"}
+                      <h3 className="text-center">Statut: {product.count > 0 ? <span className="text-success">en stock</span> : <span className="text-danger">Rupture de stock</span>}</h3>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                      Price: <span className="fw-bold">${product.price}</span>
+                     <h3 className="text-center">Prix : {product.price} DT</h3>  
                     </ListGroup.Item>
-                    <ListGroup.Item>
-                      Quantity:
+                    <ListGroup.Item className="d-inline-flex">
+                     
                       <Form.Select
                         value={quantity}
                         onChange={(e) => setQuantity(e.target.value)}
                         size="lg"
                         aria-label="Default select example"
+                        className="mx-1 w-100"
                       >
                         {[...Array(product.count).keys()].map((x) => (
                           <option key={x + 1} value={x + 1}>
@@ -131,9 +167,7 @@ const ProductDetailsPageComponent = ({
                           </option>
                         ))}
                       </Form.Select>
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                      <Button onClick={addToCartHandler} variant="danger">
+                      <Button className="mx-1 w-100" onClick={addToCartHandler} variant="danger">
                         Add to cart
                       </Button>
                     </ListGroup.Item>
