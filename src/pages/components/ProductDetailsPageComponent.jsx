@@ -107,36 +107,21 @@ const ProductDetailsPageComponent = ({
                     {product.price > 400 ? (
                       <ListGroup.Item className="w-100">
                         Payez en plusieurs fois:
-                        <table className="w-100 table">
+                        <table className="w-100 text-center table">
                           <thead>
                             <tr>
-                              <th className="">12 mois</th>
-                              <th>9 mois</th>
-                              <th>6 mois</th>
                               <th>3 mois</th>
+                              <td>6 mois</td>
+                              <td>9 mois</td>
+                              <td>12 mois</td>
                             </tr>
                           </thead>
                           <tbody>
                             <tr>
-                              <th>
-                                {(
-                                  product.price / 12 +
-                                  (product.price * 10) / 100
-                                ).toFixed(3)}
-                              </th>
-                              <td>
-                                {(
-                                  product.price / 9 +
-                                  (product.price * 8) / 100
-                                ).toFixed(3)}
-                              </td>
-                              <td>
-                                {(
-                                  product.price / 6 +
-                                  (product.price * 6) / 100
-                                ).toFixed(3)}
-                              </td>
-                              <td>{(product.price / 3).toFixed(3)}</td>
+                              <th>{(product.price / 3).toFixed(3)}</th>
+                              <td>{((product.price + ((product.price *4)/100)) / 6).toFixed(3)}</td>
+                              <td>{((product.price + ((product.price *7)/100)) / 9).toFixed(3)}</td>
+                              <td>{((product.price + ((product.price *10)/100)) / 12).toFixed(3)}</td>
                             </tr>
                           </tbody>
                         </table>
@@ -147,14 +132,21 @@ const ProductDetailsPageComponent = ({
                 <Col md={4}>
                   <ListGroup>
                     <ListGroup.Item>
-                      <h3 className="text-center">Statut: {product.count > 0 ? <span className="text-success">en stock</span> : <span className="text-danger">Rupture de stock</span>}</h3>
+                      <h3 className="text-center">
+                        Statut:{" "}
+                        {product.count > 0 ? (
+                          <span className="text-success">en stock</span>
+                        ) : (
+                          <span className="text-danger">Sur commande 48H</span>
+                        )}
+                      </h3>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                     <h3 className="text-center">Prix : {product.price} DT</h3>  
+                      <h3 className="text-center">Prix : {product.price} DT</h3>
                     </ListGroup.Item>
                     <ListGroup.Item className="d-inline-flex">
-                     
                       <Form.Select
+                      
                         value={quantity}
                         onChange={(e) => setQuantity(e.target.value)}
                         size="lg"
@@ -167,8 +159,12 @@ const ProductDetailsPageComponent = ({
                           </option>
                         ))}
                       </Form.Select>
-                      <Button className="mx-1 w-100" onClick={addToCartHandler} variant="danger">
-                        Add to cart
+                      <Button
+                        className="mx-1 w-100"
+                        onClick={addToCartHandler}
+                        variant="danger"
+                      >
+                        Ajouter au panier
                       </Button>
                     </ListGroup.Item>
                   </ListGroup>

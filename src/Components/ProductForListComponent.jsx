@@ -1,18 +1,17 @@
-import { Card, Button, Row, Col } from "react-bootstrap";
+import { Card, Button, Row, Col, ListGroup } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-;
 const ProductForListComponent = ({
   images,
   name,
   description,
   price,
   productId,
+  count,
 }) => {
-
   return (
-    <Card style={{ marginTop: "1.5rem", marginBottom: "" }}>
+    <Card className="mb-1">
       <Row>
-        <Col lg={5}>
+        <Col lg={3}>
           <LinkContainer to={`/product-details/${productId}`}>
             <Card.Img
               crossOrigin="anonymous"
@@ -22,20 +21,33 @@ const ProductForListComponent = ({
             />
           </LinkContainer>
         </Col>
-        <Col lg={7}>
-          <Card.Body>
+        <Col lg={9}  className="d-inline-flex">
+          <Card.Body className="w-100">
             <LinkContainer to={`/product-details/${productId}`}>
               <Card.Title className="cursor-pointer text-dark">
-                {name} <span className="text-primary">{price} DT</span>
+                {name} 
               </Card.Title>
             </LinkContainer>
             <Card.Text className="text-dark">{description}</Card.Text>
             <Card.Text className="h4">
               <LinkContainer to={`/product-details/${productId}`}>
-                <Button variant="outline-primary">details</Button>
+                <Button variant="outline-primary w-100">details</Button>
               </LinkContainer>
             </Card.Text>
           </Card.Body>
+          <ListGroup className=" text-center w-25">
+            <ListGroup.Item>
+              <h3 >
+                Statut:{" "}
+                {count > 1 ? (
+                  <span className="text-success">en stock</span>
+                ) : (
+                  <span className="text-danger">Sur commande 48H</span>
+                )}
+              </h3>
+            </ListGroup.Item>
+            <ListGroup.Item className="text-center"><h3>Prix : <span>{price}</span></h3></ListGroup.Item>
+          </ListGroup>
         </Col>
       </Row>
     </Card>

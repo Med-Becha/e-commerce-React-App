@@ -20,12 +20,11 @@ const ProductListPageComponent = ({ getProducts, categories }) => {
   const [showResetFiltersButton, setShowResetFiltersButton] = useState(false);
 
   const [filters, setFilters] = useState({}); // collect all filters
-  const [price, setPrice] = useState(500);
+  const [price, setPrice] = useState(10000);
   const [categoriesFromFilter, setCategoriesFromFilter] = useState({});
   const [sortOption, setSortOption] = useState("");
   const [paginationLinksNumber, setPaginationLinksNumber] = useState(null);
   const [pageNum, setPageNum] = useState(null);
-
   const { categoryName } = useParams() || "";
   const { pageNumParam } = useParams() || 1;
   const { searchQuery } = useParams() || "";
@@ -101,8 +100,8 @@ const ProductListPageComponent = ({ getProducts, categories }) => {
     <Container fluid className="">
       <Row>
         <Col md={3}>
-          <ListGroup variant="flush">
-            <ListGroup.Item className="mb-3 mt-3">
+          <ListGroup variant="">
+            <ListGroup.Item className="mb-3">
               <SortOptionsComponent setSortOption={setSortOption} />
             </ListGroup.Item>
             <ListGroup.Item>
@@ -134,7 +133,8 @@ const ProductListPageComponent = ({ getProducts, categories }) => {
             </ListGroup.Item>
           </ListGroup>
         </Col>
-        <Col md={9}>
+        <Col md={9} >
+          
           {loading ? (
             <h1>Loading products ....</h1>
           ) : error ? (
@@ -142,12 +142,15 @@ const ProductListPageComponent = ({ getProducts, categories }) => {
           ) : (
             products.map((product) => (
               <ProductForListComponent
+              
+              
                 key={product._id}
                 images={product.images}
                 name={product.name}
                 description={product.description}
                 price={product.price}
                 rating={product.rating}
+                count={product.count}
                 reviewsNumber={product.reviewsNumber}
                 productId={product._id}
               />
@@ -161,7 +164,9 @@ const ProductListPageComponent = ({ getProducts, categories }) => {
               pageNum={pageNum}
             />
           ) : null}
+         
         </Col>
+        
       </Row>
     </Container>
   );
