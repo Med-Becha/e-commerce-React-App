@@ -1,6 +1,6 @@
-import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert,  } from "react-bootstrap";
 import { useState, useEffect } from "react";
-
+import {toast} from "react-toastify"
 const UserProfilePageComponent = ({
   updateUserApiRequest,
   fetchUser,
@@ -22,7 +22,7 @@ const UserProfilePageComponent = ({
   useEffect(() => {
     fetchUser(userInfo._id)
       .then((data) => setUser(data))
-      .catch((er) => console.log(er));
+      .catch((er) => toast("error",er));
   }, [userInfo._id, fetchUser]);
 
   const onChange = () => {
@@ -86,11 +86,14 @@ const UserProfilePageComponent = ({
             );
         })
         .catch((er) =>
-          setUpdateUserResponseState({
+          setUpdateUserResponseState(
+            {
             error: er.response.data.message
-              ? er.response.data.message
+              ? er.response.data.message 
               : er.response.data,
-          })
+            
+          }),
+          
         );
     }
 
@@ -99,17 +102,17 @@ const UserProfilePageComponent = ({
   return (
     <>
       <div
-        className="alert alert-primary fw-bold mt-2 mx-1 text-center h3 p-2"
+        className="alert alert-dark text-1 fw-bold  mx-2 text-center h3 p-2"
         role="alert"
       >
-        Mettre à jour votre profil
+        Mettre à jour votre profil <i className="bi bi-person"></i>
       </div>
       <Container>
         <Row className="mt-5 justify-content-md-center">
           <Col md={6}>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="validationCustom01">
-                <Form.Label>Your name</Form.Label>
+                <Form.Label>Votre nom</Form.Label>
                 <Form.Control
                   required
                   type="text"
@@ -117,11 +120,11 @@ const UserProfilePageComponent = ({
                   name="name"
                 />
                 <Form.Control.Feedback type="invalid">
-                  Please enter a name
+                Veuillez saisir un nom
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicLastName">
-                <Form.Label>Your last name</Form.Label>
+                <Form.Label>Votre nom de famille</Form.Label>
                 <Form.Control
                   required
                   type="text"
@@ -129,58 +132,59 @@ const UserProfilePageComponent = ({
                   name="lastName"
                 />
                 <Form.Control.Feedback type="invalid">
-                  Please enter your last name
+                Veuillez saisir votre nom de famille
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label>Adresse e-mail</Form.Label>
                 <Form.Control disabled value={user.email || ""} />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPhone">
-                <Form.Label>Phone number</Form.Label>
+                <Form.Label>Numéro de téléphone</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Enter your phone number"
+                  placeholder="Entrez votre numéro de téléphone"
                   defaultValue={user.phoneNumber || ""}
                   name="phoneNumber"
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicAddress">
-                <Form.Label>Address</Form.Label>
+              <Form.Group className="mb-3" controlId="formBasicCity">
+                <Form.Label>Ville</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Enter your street name and house number"
+                  placeholder="Entrez votre ville"
+                  defaultValue={user.city || ""}
+                  name="city"
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicAddress">
+                <Form.Label>Route</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Entrez votre Route"
                   defaultValue={user.address || ""}
                   name="address"
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicCountry">
-                <Form.Label>Country</Form.Label>
+                <Form.Label>Adresse</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Enter your country"
+                  placeholder="Entrez votre adress"
                   defaultValue={user.country || ""}
                   name="country"
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicZip">
-                <Form.Label>Zip Code</Form.Label>
+                <Form.Label>Code postal</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Enter your Zip code"
+                  placeholder="Entrez votre code postal"
                   defaultValue={user.zipCode || ""}
                   name="zipCode"
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicCity">
-                <Form.Label>City</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter your city"
-                  defaultValue={user.city || ""}
-                  name="city"
-                />
-              </Form.Group>
+            
               {/* <Form.Group className="mb-3" controlId="formBasicState">
               <Form.Label>State</Form.Label>
               <Form.Control
@@ -191,41 +195,41 @@ const UserProfilePageComponent = ({
               />
             </Form.Group> */}
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>Mot de passe</Form.Label>
                 <Form.Control
                   name="password"
                   required
                   type="password"
-                  placeholder="Password"
+                  placeholder="Mot de passe"
                   minLength={6}
                   onChange={onChange}
                   isInvalid={!passwordsMatchState}
                 />
                 <Form.Control.Feedback type="invalid">
-                  Please anter a valid password
+                Entrer un mot de passe valide s'il vous plait
                 </Form.Control.Feedback>
                 <Form.Text className="text-muted">
-                  Password should have at least 6 characters
+                Le mot de passe doit comporter au moins 6 caractères
                 </Form.Text>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPasswordRepeat">
-                <Form.Label>Repeat Password</Form.Label>
+                <Form.Label>Répéter le mot de passe</Form.Label>
                 <Form.Control
                   name="confirmPassword"
                   required
                   type="password"
-                  placeholder="Repeat Password"
+                  placeholder="Répéter le mot de passe"
                   minLength={6}
                   onChange={onChange}
                   isInvalid={!passwordsMatchState}
                 />
                 <Form.Control.Feedback type="invalid">
-                  Both passwords should match
+                Les deux mots de passe doivent correspondre
                 </Form.Control.Feedback>
               </Form.Group>
 
-              <Button variant="primary" type="submit">
-                Update
+              <Button variant="secondary"  className="w-100 text-1" type="submit">
+              Mise à jour
               </Button>
               <Alert
                 show={
@@ -234,7 +238,7 @@ const UserProfilePageComponent = ({
                 }
                 variant="danger"
               >
-                Something went wrong
+                Quelque chose s'est mal passé
               </Alert>
               <Alert
                 show={
@@ -243,7 +247,7 @@ const UserProfilePageComponent = ({
                 }
                 variant="info"
               >
-                User updated
+                Utilisateur mis à jour
               </Alert>
             </Form>
           </Col>

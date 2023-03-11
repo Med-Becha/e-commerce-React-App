@@ -10,6 +10,7 @@ import {
 import CartItemComponent from "../../../Components/CartItemComponent";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const UserCartDetailsPageComponent = ({
   cartItems,
@@ -64,12 +65,9 @@ const UserCartDetailsPageComponent = ({
         }
       })
       .catch((error) =>
-        console.log(
-          error.response.data.message
-            ? error.response.data.message
-            : error.response.data
-        )
+        toast("error")
       );
+      //eslint-disable-next-line 
   }, [userInfo._id]);
 
   const orderHandler = () => {
@@ -106,28 +104,28 @@ const UserCartDetailsPageComponent = ({
   return (
     <>
       <div
-        className="alert alert-primary fw-bold mt-2 mx-1 text-center h3 p-2"
+        className="alert alert-dark text-1 fw-bold  mx-2 text-center h3 p-2"
         role="alert"
       >
-        Détails du panier
+        Détails et confirmation du commande <i className="bi bi-bag-check"></i>
       </div>
       <Container fluid>
-        <Row className="mt-4">
+        <Row className="">
           <Col md={8}>
             <br />
             <Row>
               <Col md={6}>
-                <h2 className="">Livraison</h2>
-                <b>Nom</b>: {userInfo.name} {userInfo.lastName} <br />
-                <b>Adresse</b>: {userAddress.address} {userAddress.city}{" "}
-                {userAddress.zipCode} <br />
-                <b>Téléphone</b>: {userAddress.phoneNumber}
+              <h2>Livraison</h2>
+              <b>Nom</b>: {userInfo.name} {userInfo.lastName} <br />
+              <b>Adresse</b> : {userAddress.country}, {userAddress.address}, {userAddress.city}{" "}
+              {userAddress.state}, {userAddress.zipCode} <br />
+              <b>Téléphone</b>: {userAddress.phoneNumber}
               </Col>
               <Col md={6}>
                 <h2>Mode de paiement</h2>
                 <Form.Select onChange={choosePayment}>
                   <option value="cod">Paiement à la livraison</option>
-                  <option value="pp" >
+                  <option disabled value="pp" >
                     PayPal
                   </option>
                 </Form.Select>
@@ -140,7 +138,7 @@ const UserCartDetailsPageComponent = ({
                 </Col>
                 <Col>
                   <Alert className="mt-3" variant="success">
-                    Pas encore payé
+                    Pas encore payé , Paiement à la livraison
                   </Alert>
                 </Col>
               </Row>
@@ -159,7 +157,7 @@ const UserCartDetailsPageComponent = ({
             </ListGroup>
           </Col>
           <Col md={4}>
-            <ListGroup>
+            <ListGroup className="text-center">
               <ListGroup.Item>
                 <h3>Résumé de l'ordre</h3>
               </ListGroup.Item>
@@ -168,13 +166,10 @@ const UserCartDetailsPageComponent = ({
                 <span className="fw-bold">{cartSubtotal} DT</span>
               </ListGroup.Item>
               <ListGroup.Item>
-                Livraison: <span className="fw-bold">7 DT</span>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                Timbre Fiscal: <span className="fw-bold">1 DT</span>
+                Livraison: <span className="fw-bold">{cartSubtotal < 400 ? 7 : "Gratuit"} </span>
               </ListGroup.Item>
               <ListGroup.Item className="text-danger">
-                Total price: <span className="fw-bold">{cartSubtotal + 8}</span>
+              Prix Total : <span className="fw-bold">{cartSubtotal < 400 ? (cartSubtotal+ 7) : cartSubtotal } DT</span>
               </ListGroup.Item>
               <ListGroup.Item>
                 <div className="d-grid gap-2">
@@ -185,7 +180,7 @@ const UserCartDetailsPageComponent = ({
                     type="button"
                     disabled={buttonDisable}
                   >
-                    Passer la commande
+                    Passer la commande <i className="bi bi-send-check"></i>
                   </Button>
                 </div>
               </ListGroup.Item>

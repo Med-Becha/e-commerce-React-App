@@ -9,7 +9,7 @@ import AttributesFilterComponent from "../../Components/filterQueryResultOptions
 import { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 
-import {toast} from "react-toastify"
+import { toast } from "react-toastify";
 
 const ProductListPageComponent = ({ getProducts, categories }) => {
   const [products, setProducts] = useState([]);
@@ -74,14 +74,14 @@ const ProductListPageComponent = ({ getProducts, categories }) => {
         setLoading(false);
       })
       .catch((er) => {
-        toast("error", er.message)
+        toast("error", er.message);
         setError(true);
       });
-      // eslint-disable-next-line 
+    // eslint-disable-next-line
   }, [categoryName, pageNumParam, searchQuery, filters, sortOption]);
 
   const handleFilters = () => {
-     navigate(location.pathname.replace(/\/[0-9]+$/, "")); 
+    navigate(location.pathname.replace(/\/[0-9]+$/, ""));
     setShowResetFiltersButton(true);
     setFilters({
       price: price,
@@ -127,23 +127,30 @@ const ProductListPageComponent = ({ getProducts, categories }) => {
               </Button>{" "}
               {showResetFiltersButton && (
                 <Button onClick={resetFilters} variant="danger">
-                  Reset filters
+                  Reset filters{" "}
+                  <div className="spinner-grow spinner-grow-sm" role="status">
+                    <span className="visually-hidden"></span>
+                  </div>
                 </Button>
               )}
             </ListGroup.Item>
           </ListGroup>
         </Col>
-        <Col md={9} >
-          
+        <Col md={9}>
           {loading ? (
-            <h1>Loading products ....</h1>
+            <h1>
+              Chargement des produits{" "}
+              <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </h1>
           ) : error ? (
-            <h1>Error while loading products. Try again later.</h1>
+            <h1>
+              Erreur lors du chargement des produits. Réessayez plus tard.
+            </h1>
           ) : (
             products.map((product) => (
               <ProductForListComponent
-              
-              
                 key={product._id}
                 images={product.images}
                 name={product.name}
@@ -164,13 +171,10 @@ const ProductListPageComponent = ({ getProducts, categories }) => {
               pageNum={pageNum}
             />
           ) : null}
-         
         </Col>
-        
       </Row>
     </Container>
   );
 };
 
 export default ProductListPageComponent;
-

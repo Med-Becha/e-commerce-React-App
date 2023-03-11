@@ -4,9 +4,9 @@ import RemoveFromCartComponent from "./RemoveFromCartComponent"
 const CartItemComponent = ({ removeFromCartHandler = false, item, orderCreated = false, changeCount = false }) => {
   return (
     <>
-      <ListGroup.Item>
+      <ListGroup.Item className="text-center">
         <Row className="g-1">
-          <Col md={4}>
+          <Col md={3}>
             <Image
             className="rounded"
               crossOrigin="anonymous"
@@ -14,9 +14,9 @@ const CartItemComponent = ({ removeFromCartHandler = false, item, orderCreated =
               fluid
             />
           </Col>
-          <Col md={3}>{item.name}</Col>
+          <Col md={3}> <h3>{item.name}</h3></Col>
           <Col className=" text-center" md={2}>
-            <b className="text-primary"><h2>{item.price} DT</h2></b>
+            <b className="text-danger"><h2>{item.price} DT</h2></b>
           </Col>
           <Col md={2}>
             <Form.Select onChange={changeCount ? (e) => changeCount(item.productID, e.target.value) : undefined } disabled={orderCreated} value={item.quantity}>
@@ -27,7 +27,7 @@ const CartItemComponent = ({ removeFromCartHandler = false, item, orderCreated =
               ))}
             </Form.Select>
           </Col>
-          <Col md={1}>
+          <Col md={2}>
             <RemoveFromCartComponent
             orderCreated={orderCreated}
             productID={item.productID}

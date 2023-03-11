@@ -2,6 +2,7 @@ import { Row, Col, Table, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const UserOrderPageComponent = ({ getOrders }) => {
   const [orders, setOrders] = useState([]);
@@ -10,7 +11,8 @@ const UserOrderPageComponent = ({ getOrders }) => {
   useEffect(() => {
     getOrders()
       .then((orders) => setOrders(orders))
-      .catch((err) => console.log(err));
+      .catch((err) => toast("error"));
+      // eslint-disable-next-line
   }, []);
   return (
     <>

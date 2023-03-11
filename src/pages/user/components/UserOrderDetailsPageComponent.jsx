@@ -10,6 +10,7 @@ import {
 import CartItemComponent from "../../../Components/CartItemComponent";
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const UserOrderDetailsPageComponent = ({
   userInfo,
@@ -43,11 +44,12 @@ const UserOrderDetailsPageComponent = ({
           phoneNumber: data.phoneNumber,
         });
       })
-      .catch((err) => console.log(err));
-  }, []);
+      .catch((err) => toast("error" ));
+      //eslint-disable-next-line 
+  }, [id,userInfo]);
 
   useEffect(() => {
-    getOrder(id)
+    getOrder(id) 
       .then((data) => {
         setPaymentMethod(data.paymentMethod);
         setCartItems(data.cartItems);
@@ -57,18 +59,19 @@ const UserOrderDetailsPageComponent = ({
           : setIsDelivered(false);
         data.isPaid ? setIsPaid(data.paidAt) : setIsPaid(false);
         if (data.isPaid) {
-          setOrderButtonMessage("Your order is finished");
+          setOrderButtonMessage("Votre commande est terminée");
           setButtonDisabled(true);
         } else {
           if (data.paymentMethod === "pp") {
-            setOrderButtonMessage("Pay for your order");
+            setOrderButtonMessage("Payer votre commande");
           } else if (data.paymentMethod === "cod") {
             setButtonDisabled(true);
-            setOrderButtonMessage("Wait for your order. You pay on delivery");
+            setOrderButtonMessage("Attendez votre commande. Vous payez à la livraison");
           }
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => toast("error" ));
+      //eslint-disable-next-line
   }, []);
 
   const orderHandler = () => {
@@ -94,24 +97,30 @@ const UserOrderDetailsPageComponent = ({
 
   return (
     <Container fluid>
-      <Row className="mt-4">
-        <h1>Order Details</h1>
+      <Row className="">
+      <div
+        className="alert alert-dark text-1 fw-bold mt-2 mx-1 text-center h3 p-2"
+        role="alert"
+      >
+        Détails de la commande
+      </div>
+        
         <Col md={8}>
           <br />
           <Row>
             <Col md={6}>
-              <h2>Shipping</h2>
-              <b>Name</b>: {userInfo.name} {userInfo.lastName} <br />
-              <b>Address</b>: {userAddress.address} {userAddress.city}{" "}
-              {userAddress.state} {userAddress.zipCode} <br />
-              <b>Phone</b>: {userAddress.phoneNumber}
+              <h2>Livraison</h2>
+              <b>Nom</b>: {userInfo.name} {userInfo.lastName} <br />
+              <b>Adresse</b> : {userAddress.country}, {userAddress.address}, {userAddress.city}{" "}
+              {userAddress.state}, {userAddress.zipCode} <br />
+              <b>Téléphone</b>: {userAddress.phoneNumber}
             </Col>
             <Col md={6}>
-              <h2>Payment method</h2>
+              <h2>Mode de paiement</h2>
               <Form.Select value={paymentMethod} disabled={true}>
                 <option value="pp">PayPal</option>
                 <option value="cod">
-                  Cash On Delivery (delivery may be delayed)
+                Paiement à la livraison (la livraison peut être retardée)
                 </option>
               </Form.Select>
             </Col>
@@ -122,21 +131,21 @@ const UserOrderDetailsPageComponent = ({
                   variant={isDelivered ? "success" : "danger"}
                 >
                   {isDelivered ? (
-                    <>Delivered at {isDelivered}</>
+                    <>Délivré à {isDelivered}</>
                   ) : (
-                    <>Not delivered</>
+                    <>Non livrée</>
                   )}
                 </Alert>
               </Col>
               <Col>
                 <Alert className="mt-3" variant={isPaid ? "success" : "danger"}>
-                  {isPaid ? <>Paid on {isPaid}</> : <>Not paid yet</>}
+                  {isPaid ? <>Payé le {isPaid}</> : <>Paiement à la livraison</>}
                 </Alert>
               </Col>
             </Row>
           </Row>
           <br />
-          <h2>Order items</h2>
+          <h2>Articles de commande</h2>
           <ListGroup variant="flush">
             {cartItems.map((item, idx) => (
               <CartItemComponent item={item} key={idx} orderCreated={true} />
@@ -146,20 +155,20 @@ const UserOrderDetailsPageComponent = ({
         <Col md={4}>
           <ListGroup>
             <ListGroup.Item>
-              <h3>Order summary</h3>
+              <h3>Résumé de la commande</h3>
             </ListGroup.Item>
             <ListGroup.Item>
-              Items price (after tax):{" "}
-              <span className="fw-bold">${cartSubtotal}</span>
+            Prix des articles (après taxes):{" "}
+              <span className="fw-bold">{cartSubtotal} DT</span>
             </ListGroup.Item>
             <ListGroup.Item>
-              Shipping: <span className="fw-bold">included</span>
+            Livraison: <span className="fw-bold">7 DT</span>
             </ListGroup.Item>
             <ListGroup.Item>
-              Tax: <span className="fw-bold">included</span>
+              Tax: <span className="fw-bold">inclus</span>
             </ListGroup.Item>
             <ListGroup.Item className="text-danger">
-              Total price: <span className="fw-bold">${cartSubtotal}</span>
+            Prix total: <span className="fw-bold">{cartSubtotal + 7} DT</span>
             </ListGroup.Item>
             <ListGroup.Item>
               <div className="d-grid gap-2">

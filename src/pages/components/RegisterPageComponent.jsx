@@ -66,93 +66,93 @@ const RegisterPageComponent = ({
   return (
     <>
       <div
-        className="alert alert-primary fw-bold mt-2 mx-1 text-center h3 p-2"
+        className="alert alert-dark text-1 fw-bold  mx-1 text-center h3 p-2"
         role="alert"
       >
-        S'inscrire
+        S'inscrire <i className="bi bi-person-plus"></i>
       </div>
       <Container>
         <Row className="mt-5 justify-content-md-center">
           <Col md={6}>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="validationCustom01">
-                <Form.Label>Your name</Form.Label>
+                <Form.Label>Votre nom</Form.Label>
                 <Form.Control
                   required
                   type="text"
-                  placeholder="Enter your name"
+                  placeholder="Entrez votre nom"
                   name="name"
                 />
                 <Form.Control.Feedback type="invalid">
-                  Please enter a name
+                Veuillez saisir un nom
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicLastName">
-                <Form.Label>Your last name</Form.Label>
+                <Form.Label>Votre nom de famille</Form.Label>
                 <Form.Control
                   required
                   type="text"
-                  placeholder="Enter your last name"
+                  placeholder="Saisissez votre nom de famille"
                   name="lastName"
                 />
                 <Form.Control.Feedback type="invalid">
-                  Please enter your last name
+                Veuillez saisir votre nom de famille
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label>Adresse e-mail</Form.Label>
                 <Form.Control
                   name="email"
                   required
                   type="email"
-                  placeholder="Enter email"
+                  placeholder="Saisir l'adresse e-mail"
                 />
                 <Form.Control.Feedback type="invalid">
-                  Please anter a valid email address
+                Veuillez saisir une adresse e-mail valide
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>Mot de passe</Form.Label>
                 <Form.Control
                   name="password"
                   required
                   type="password"
-                  placeholder="Password"
+                  placeholder="Mot de passe"
                   minLength={6}
                   onChange={onChange}
                   isInvalid={!passwordsMatchState}
                 />
                 <Form.Control.Feedback type="invalid">
-                  Please anter a valid password
+                Veuillez saisir un mot de passe valide
                 </Form.Control.Feedback>
                 <Form.Text className="text-muted">
-                  Password should have at least 6 characters
+                Le mot de passe doit comporter au moins 6 caractères
                 </Form.Text>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPasswordRepeat">
-                <Form.Label>Repeat Password</Form.Label>
+                <Form.Label>Répéter le mot de passe</Form.Label>
                 <Form.Control
                   name="confirmPassword"
                   required
                   type="password"
-                  placeholder="Repeat Password"
+                  placeholder="Répéter le mot de passe"
                   minLength={6}
                   onChange={onChange}
                   isInvalid={!passwordsMatchState}
                 />
                 <Form.Control.Feedback type="invalid">
-                  Both passwords should match
+                Les deux mots de passe doivent correspondre
                 </Form.Control.Feedback>
               </Form.Group>
 
               <Row className="pb-2">
                 <Col>
-                  Do you have an account already?
-                  <Link to={"/login"}> Login </Link>
+                Avez-vous déjà un compte ?
+                  <Link to={"/login"}> Login <i className="bi bi-box-arrow-in-right"></i></Link>
                 </Col>
               </Row>
 
-              <Button variant="outline-primary" type="submit">
+              <Button variant="outline-dark" className="text-1 w-100" type="submit">
                 {registerUserResponseState &&
                 registerUserResponseState.loading === true ? (
                   <Spinner
@@ -165,7 +165,7 @@ const RegisterPageComponent = ({
                 ) : (
                   ""
                 )}
-                Submit
+                Envoyer
               </Button>
               <Alert
                 show={
@@ -173,8 +173,9 @@ const RegisterPageComponent = ({
                   registerUserResponseState.error === "user exists"
                 }
                 variant="danger"
+                className="mt-1"
               >
-                User with that email already exists!
+                Utilisateur avec cet e-mail existe déjà !
               </Alert>
               <Alert
                 show={
@@ -182,8 +183,9 @@ const RegisterPageComponent = ({
                   registerUserResponseState.success === "User created"
                 }
                 variant="info"
+                className="mt-1"
               >
-                User created
+                Utilisateur a été créé
               </Alert>
             </Form>
           </Col>

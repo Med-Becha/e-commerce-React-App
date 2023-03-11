@@ -13,14 +13,15 @@ const AddedToCartMessageComponent = ({
   return (
     <Alert
       show={showCartMessage}
-      variant="primary"
+      variant="dark"
       onClose={() => setShowCartMessage(false)}
       dismissible
+      className="text-1 text-center"
     >
-      <Alert.Heading>The product was added to your cart!</Alert.Heading>
-      <Button variant="primary" onClick={goBack}>Go back</Button>{" "}
+      <Alert.Heading>Le produit a été ajouté à votre panier !</Alert.Heading>
+      <Button variant="secondary" className="text-1" onClick={goBack}>Retourner <i className="bi bi-arrow-90deg-left"></i></Button>{" "}
       <Link to="/cart">
-        <Button variant="info">Go to cart</Button>
+        <Button variant="secondary" className="text-1" >Aller au panier <i className="bi bi-bag"></i></Button>
       </Link>
     </Alert>
   );

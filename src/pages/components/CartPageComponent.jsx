@@ -14,24 +14,24 @@ const CartPageComponent = ({
   };
 
   const removeFromCartHandler = (productID, quantity, price) => {
-    if (window.confirm("Are you sure?")) {
+    if (window.confirm("Es-tu sûr?")) {
       reduxDispatch(removeFromCart(productID, quantity, price));
     }
   };
 
   return (
-    <div className="text-center">
+    <div className="text-center ">
       <div
-        className="alert alert-dark fw-bold mx-3 text-center h3 p-2"
+        className="alert text-1 alert-dark fw-bold mx-3 text-center h3 p-2"
         role="alert"
       >
-        PANIER
+        PANIER <i className="bi bi-bag"></i>
       </div>
       <Container fluid>
         <Row className="mt-4">
           <Col md={8}>
             {cartItems && cartItems.length === 0 ? (
-              <Alert variant="info">Your cart is empty</Alert>
+              <Alert variant="dark"  className="text-1">Votre panier est vide</Alert>
             ) : (
               <ListGroup variant="flush">
                 {cartItems.map((item, idx) => (
@@ -58,7 +58,7 @@ const CartPageComponent = ({
               </ListGroup.Item>
               <ListGroup.Item>
                 <LinkContainer to="/user/cart-details">
-                  <Button disabled={cartSubtotal === 0} className="w-100 " type="button">
+                  <Button disabled={cartSubtotal === 0} className="w-100 text-1" variant="secondary" type="button">
                   Passer à la caisse
                   </Button>
                 </LinkContainer>
