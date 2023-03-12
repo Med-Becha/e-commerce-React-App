@@ -2,7 +2,7 @@ import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
-import { toast } from "react-toastify";
+
 
 const LoginPageComponent = ({
   loginUserApiRequest,
@@ -43,13 +43,13 @@ const LoginPageComponent = ({
             window.location.href = "/user";
           else window.location.href = "/admin/orders";
         })
-        .catch((er) =>
+        .catch((er) => 
           setLoginUserResponseState({
             error: er.response.data.message
               ? er.response.data.message
               : er.response.data,
-          }),
-          toast("e-mail ou mot de passe non validé")
+          }) 
+          
         );
     }
 

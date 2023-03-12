@@ -19,7 +19,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getCategories } from "../redux/actions/categoryActions";
 import socketIOClient from "socket.io-client";
-import { setChatRooms } from "../redux/actions/chatActions";
+import {
+  setChatRooms,
+  setSocket,
+  setMessageReceived,
+} from "../redux/actions/chatActions";
 
 function HeaderComponent() {
   const navigate = useNavigate();
@@ -29,9 +33,9 @@ function HeaderComponent() {
   const cartSubtotal = useSelector((state) => state.cart.cartSubtotal);
   const { categories } = useSelector((state) => state.getCategories);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchCategoryToggle, setSearchCategoryToggle] = useState(
-    "tous les categories"
-  );
+  const { messageReceived } = useSelector((state) => state.adminChat);
+  const [searchCategoryToggle, setSearchCategoryToggle] =
+    useState("categories");
 
   useEffect(() => {
     dispatch(getCategories());
@@ -63,11 +67,18 @@ function HeaderComponent() {
   useEffect(() => {
     if (userInfo.isAdmin) {
       const socket = socketIOClient();
+      var audio = new Audio("/audio/chat-msg.mp3");
       socket.on("server sends message from client to admin", ({ message }) => {
+        dispatch(setSocket(socket));
         dispatch(setChatRooms("exampleUser", message));
+        dispatch(setMessageReceived(true));
+        audio.play();
       });
+      return () => socket.disconnect();
+      
     }
-  }, [userInfo.isAdmin, dispatch]);
+    //eslint-disable-next-line
+  }, [userInfo.isAdmin]);
   return (
     <div className=" fixed-top">
       <Navbar className="backgroundNavbar">
@@ -143,7 +154,9 @@ function HeaderComponent() {
                 <LinkContainer to="/admin/orders">
                   <Button variant="outline-light" className="text-1">
                     Admin
-                    <span className="position-absolute top-1 start-10 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                    {messageReceived && (
+                      <span className="position-absolute top-1 start-10 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                    )}
                   </Button>
                 </LinkContainer>
               ) : userInfo.name && !userInfo.isAdmin ? (

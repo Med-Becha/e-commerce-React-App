@@ -10,13 +10,24 @@ const UserChatComponent = () => {
   //       {"admin": "msg"},
   //   ]
   const [chat, setChat] = useState([]);
+  const [messageReceived, setMessageReceived] = useState(false);
 
   const userInfo = useSelector((state) => state.userRegisterLogin.userInfo);
 
   useEffect(() => {
     if (!userInfo.isAdmin) {
+      var audio = new Audio("/audio/chat-msg-1.mp3")
       const socket = socketIOClient();
       setSocket(socket);
+      socket.on("server sends message from admin to client", (msg) => {
+          setChat((chat) => {
+              return [...chat, { admin: msg }];
+          })
+          setMessageReceived(true);
+          audio.play();
+          const chatMessages = document.querySelector(".cht-msg");
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+      })
       return () => socket.disconnect();
     }
   }, [userInfo.isAdmin]);
@@ -25,6 +36,7 @@ const UserChatComponent = () => {
     if (e.keyCode && e.keyCode !== 13) {
       return;
     }
+    setMessageReceived(false);
     const msg = document.getElementById("clientChatMsg");
     let v = msg.value.trim();
     if (v === "" || v === null || v === false || !v) {
@@ -47,12 +59,13 @@ const UserChatComponent = () => {
       <input type="checkbox" id="check" />
       <label className="chat-btn" htmlFor="check">
         <i className="bi bi-chat-dots comment"></i>
-        <span className="position-absolute top-0 start-10 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
+        {messageReceived && <span className="position-absolute top-0 start-10 translate-middle p-2 bg-danger border border-light rounded-circle"></span>}
+        
         <i className="bi bi-x-circle close"></i>
       </label>
       <div className="chat-wrapper">
-        <div className="chat-header ">
-          <h6 className="text-1">Let's Chat - Online</h6>
+        <div className="chat-header">
+          <h6>Let's Chat - Online</h6>
         </div>
         <div className="chat-form">
           <div className="cht-msg">
@@ -71,7 +84,6 @@ const UserChatComponent = () => {
               </div>
             ))}
           </div>
-          <div className="d-inline-flex w-100">
           <textarea
             onKeyUp={(e) => clientSubmitChatMsg(e)}
             id="clientChatMsg"
@@ -81,11 +93,10 @@ const UserChatComponent = () => {
 
           <button
             onClick={(e) => clientSubmitChatMsg(e)}
-            className="btn text-1 bgcolor btn-block mx-1"
+            className="btn btn-success btn-block"
           >
-            <i className="bi bi-send"></i>
+            Submit
           </button>
-          </div>
         </div>
       </div>
     </>

@@ -49,7 +49,7 @@ const OrderDetailsPageComponent = ({ getOrder, markAsDelivered }) => {
   }, [isDelivered, id]);
   return (
     <Container fluid>
-      <Row className="mt-4">
+      <Row className="">
         <h1>Order Details</h1>
         <Col md={8}>
           <br />
@@ -57,8 +57,8 @@ const OrderDetailsPageComponent = ({ getOrder, markAsDelivered }) => {
             <Col md={6}>
               <h2>Shipping</h2>
               <b>Name</b>: {userInfo.name} {userInfo.lastName} <br />
-              <b>Address</b>: {userInfo.address} {userInfo.city}{" "}
-              {userInfo.state} {userInfo.zipCode} <br />
+              <b>Address</b>: {userInfo.country}, {userInfo.address}, {userInfo.city}{" "}
+              {userInfo.state}, {userInfo.zipCode} <br />
               <b>Phone</b>: {userInfo.phoneNumber}
             </Col>
             <Col md={6}>
