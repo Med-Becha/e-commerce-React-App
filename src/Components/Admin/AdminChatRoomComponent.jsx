@@ -11,8 +11,9 @@ const AdminChatRoomComponent = ({ chatRoom, roomIndex, socket, socketUser }) => 
     useState(true);
     const [rerender, setRerender] = useState(false);
 
-  const close = () => {
+  const close = (socketId) => {
     window["closeToast" + roomIndex](false);
+    socket.emit("admin closes chat", socketId);
   };
 
   const adminSubmitChatMsg = (e, elem) => {
@@ -27,6 +28,7 @@ const AdminChatRoomComponent = ({ chatRoom, roomIndex, socket, socketUser }) => 
       }
       chatRoom[1].push({ admin: msg.value });
       socket.emit("admin sends message", {
+          user: socketUser,
           message: v,
       })
        setRerender(!rerender);
@@ -47,8 +49,8 @@ const AdminChatRoomComponent = ({ chatRoom, roomIndex, socket, socketUser }) => 
   return (
     <>
       <Toast
-        show={window["toast" + roomIndex]}
-        onClose={() => close()}
+        show={"toast" + roomIndex}
+        onClose={() => close(chatRoom[0])}
         className="ms-4 mb-5"
       >
         <Toast.Header>

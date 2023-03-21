@@ -1,6 +1,6 @@
 import ProductCarouselComponent from "../../Components/ProductCarouselComponent";
 import { Row,  Col } from "react-bootstrap";
-
+import MetaComponent from "../../Components/MetaComponent";
 import { useEffect, useState } from "react";
 import {toast } from "react-toastify"
 import { Link } from "react-router-dom";
@@ -23,6 +23,8 @@ const HomePageComponent = ({ getProducts, getBestsellers }) => {
   }, [])
 
   return (
+    <>
+    <MetaComponent/>
     <div className="px-5">
       
       <ProductCarouselComponent bestSellers={bestSellers} />
@@ -43,6 +45,7 @@ const HomePageComponent = ({ getProducts, getBestsellers }) => {
         </Row>
       
     </div>
+    </>
   );
 };
 

@@ -8,7 +8,7 @@ import "swiper/css/effect-cube";
 import "swiper/css/pagination";
 import { EffectCube, Pagination, Autoplay } from "swiper";
 import "./styles.css";
-
+import MetaComponent from "../../Components/MetaComponent"
 import { useParams } from "react-router-dom";
 
 const ProductDetailsPageComponent = ({
@@ -45,6 +45,8 @@ const ProductDetailsPageComponent = ({
   }, [id]);
 
   return (
+    <>
+    <MetaComponent title={product.name} description={product.description} />
     <div className="mx-4 ">
       <AddedToCartMessageComponent
         showCartMessage={showCartMessage}
@@ -175,6 +177,7 @@ const ProductDetailsPageComponent = ({
         )}
       </Row>
     </div>
+    </>
   );
 };
 

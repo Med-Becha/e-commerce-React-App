@@ -6,7 +6,7 @@ const CategoriesNavBarComponent = () => {
   const { categories } = useSelector((state) => state.getCategories);
   
   return (
-    <ul className="nav justify-content-center bgcolor">
+    <ul className="nav justify-content-center bgcolor fixed-top mt-5">
       {categories.map((category, idx) => (
         <li className="nav-item" key={idx}>
           <Link
