@@ -54,6 +54,7 @@ const EditProductPageComponent = ({
   const [isUploading, setIsUploading] = useState("");
   const [imageUploaded, setImageUploaded] = useState(false);
   const [selectBtnValue, setSelectBtnValue] = useState(false);
+  console.log(selectBtnValue);
 
   const attrVal = useRef(null);
   const attrKey = useRef(null);
@@ -81,7 +82,7 @@ const EditProductPageComponent = ({
       description: form.description.value,
       count: form.count.value,
       price: form.price.value,
-      selected: selectBtnValue.value,
+      selected: selectBtnValue,
       category: form.category.value,
       attributesTable: attributesTable,
     };
