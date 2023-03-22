@@ -36,7 +36,9 @@ footer {
 
 
 }
-
+.zindex{
+  z-index: 3213;
+}
 .copyright-text {
   font-size: 1.4rem;
   font-weight: 600;

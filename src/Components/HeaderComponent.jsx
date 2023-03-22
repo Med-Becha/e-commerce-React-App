@@ -80,14 +80,14 @@ const HeaderComponent = () => {
     <Navbar collapseOnSelect expand="lg" className="footer" fixed="top">
       <Container>
         <LinkContainer to="/">
-          <Navbar.Brand href="/">BEST ONLINE SHOP</Navbar.Brand>
+          <Navbar.Brand href="/">spark-tek</Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <InputGroup>
               <DropdownButton id="dropdown-basic-button" title={searchCategoryToggle}>
-                  <Dropdown.Item onClick={() => setSearchCategoryToggle("All")}>All</Dropdown.Item>
+                  <Dropdown.Item onClick={() => setSearchCategoryToggle("All")}>tous</Dropdown.Item>
                 {categories.map((category, id) => (
                   <Dropdown.Item key={id} onClick={() => setSearchCategoryToggle(category.name)}>{category.name}</Dropdown.Item>
                 ))}

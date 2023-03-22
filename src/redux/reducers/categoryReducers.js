@@ -1,4 +1,4 @@
-import * as actionTypes from "../constants/categoriesConstants";
+import * as actionTypes from "../constants/categoryConstants";
 
 export const getCategoriesReducer = (state = { categories: [] }, action) => {
     switch (action.type) {

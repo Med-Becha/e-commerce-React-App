@@ -1,4 +1,4 @@
-import * as actionTypes from "../constants/categoriesConstants";
+import * as actionTypes from "../constants/categoryConstants";
 
 import axios from "axios";
 

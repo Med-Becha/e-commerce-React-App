@@ -9,9 +9,9 @@ const loginUserApiRequest = async (email, password, doNotLogout) => {
     password,
     doNotLogout,
   });
-  if (data.userLoggedIn)
+  if (data.userLoggedIn.doNotLogout)
     localStorage.setItem("userInfo", JSON.stringify(data.userLoggedIn));
-    else sessionStorage.setItem("userInfo", JSON.stringify(data.userLoggedIn));
+  else sessionStorage.setItem("userInfo", JSON.stringify(data.userLoggedIn));
   return data;
 };
 const LoginPage = () => {

@@ -4,7 +4,7 @@ import thunk from "redux-thunk";
 
 import { cartReducer } from "./reducers/cartReducers";
 import { userRegisterLoginReducer } from './reducers/userReducers';
-import { getCategoriesReducer } from "./reducers/categoriesReducers";
+import { getCategoriesReducer } from "./reducers/categoryReducers";
 import { adminChatReducer } from "./reducers/adminChatReducers";
 
 const reducer = combineReducers({
@@ -37,4 +37,3 @@ const store = createStore(reducer, INITIAL_STATE, composeWithDevTools(applyMiddl
 
 
 export default store;
-
