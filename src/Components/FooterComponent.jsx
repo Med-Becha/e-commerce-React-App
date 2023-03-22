@@ -5,7 +5,7 @@ import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "./styles2.css";
 import { useNavigate } from "react-router-dom";
-import logo from "../logo.png";
+import logo from "./logo/SparkTek.png";
 import acer from "./logo/acer.png";
 import appel from "./logo/apple.png";
 import asus from "./logo/asus.png";
@@ -133,7 +133,6 @@ const FooterComponent = () => {
               </span>{" "}
             </p>
           </div>
-        
         </div>
         <hr />
         <div onClick={() => navigate("/apropos")}>

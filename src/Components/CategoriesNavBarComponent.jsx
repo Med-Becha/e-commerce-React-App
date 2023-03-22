@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 const CategoriesNavBarComponent = () => {
   const { categories } = useSelector((state) => state.getCategories);
-  
+
   return (
-    <ul className="nav justify-content-center bgcolor fixed-top mt-5">
+    <ul className="nav justify-content-center bgcolor">
       {categories.map((category, idx) => (
         <li className="nav-item" key={idx}>
           <Link

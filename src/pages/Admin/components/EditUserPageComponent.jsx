@@ -7,13 +7,15 @@ import { toast } from "react-toastify";
 
 const EditUserPageComponent = ({ updateUserApiRequest, fetchUser }) => {
   const [validated, setValidated] = useState(false);
-    const [user, setUser] = useState([]);
-    const [isAdminState, setIsAdminState] = useState(false);
-    const [updateUserResponseState, setUpdateUserResponseState] = useState({ message: "", error: "" });
+  const [user, setUser] = useState([]);
+  const [isAdminState, setIsAdminState] = useState(false);
+  const [updateUserResponseState, setUpdateUserResponseState] = useState({
+    message: "",
+    error: "",
+  });
 
-    const { id } = useParams();
-    const navigate = useNavigate();
-
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -24,33 +26,37 @@ const EditUserPageComponent = ({ updateUserApiRequest, fetchUser }) => {
     const email = form.email.value;
     const isAdmin = form.isAdmin.checked;
     if (event.currentTarget.checkValidity() === true) {
-        updateUserApiRequest(id, name, lastName, email, isAdmin)
-        .then(data => {
-            if (data === "user updated") {
-                navigate("/admin/users");
-            }
+      updateUserApiRequest(id, name, lastName, email, isAdmin)
+        .then((data) => {
+          if (data === "user updated") {
+            navigate("/admin/users");
+          }
         })
-        .catch(er => {
-            setUpdateUserResponseState({ error: er.response.data.message ? er.response.data.message : er.response.data });
-        })
+        .catch((er) => {
+          setUpdateUserResponseState({
+            error: er.response.data.message
+              ? er.response.data.message
+              : er.response.data,
+          });
+        });
     }
 
     setValidated(true);
   };
 
-    useEffect(() => {
-        fetchUser(id)
-        .then(data => {
-            setUser(data);
-            setIsAdminState(data.isAdmin);
-        })
-        .catch((er) => toast("error"));
-        //eslint-disable-next-line
-    }, [id])
+  useEffect(() => {
+    fetchUser(id)
+      .then((data) => {
+        setUser(data);
+        setIsAdminState(data.isAdmin);
+      })
+      .catch((er) => toast("error"));
+    //eslint-disable-next-line
+  }, [id]);
 
   return (
     <Container>
-      <Row className="justify-content-md-center mt-5">
+      <Row className="justify-content-md-center mx-5">
         <Col md={1}>
           <Link to="/admin/users" className="btn btn-info my-3">
             Go Back
@@ -75,7 +81,7 @@ const EditUserPageComponent = ({ updateUserApiRequest, fetchUser }) => {
                 name="lastName"
                 required
                 type="text"
-                defaultValue={user.lastName} 
+                defaultValue={user.lastName}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -89,7 +95,13 @@ const EditUserPageComponent = ({ updateUserApiRequest, fetchUser }) => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check name="isAdmin" type="checkbox" label="Is admin" checked={isAdminState} onChange={(e) => setIsAdminState(e.target.checked)} />
+              <Form.Check
+                name="isAdmin"
+                type="checkbox"
+                label="Is admin"
+                checked={isAdminState}
+                onChange={(e) => setIsAdminState(e.target.checked)}
+              />
             </Form.Group>
 
             <Button variant="primary" type="submit">
@@ -104,4 +116,3 @@ const EditUserPageComponent = ({ updateUserApiRequest, fetchUser }) => {
 };
 
 export default EditUserPageComponent;
-
