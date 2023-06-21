@@ -21,23 +21,25 @@ const ProductForListComponent = ({
             />
           </LinkContainer>
         </Col>
-        <Col lg={9}  className="d-inline-flex">
+        <Col lg={9} className="d-inline-flex">
           <Card.Body className="w-100">
             <LinkContainer to={`/product-details/${productId}`}>
               <Card.Title className="cursor-pointer text-dark">
-                {name} 
+                {name}
               </Card.Title>
             </LinkContainer>
             <Card.Text className="text-dark">{description}</Card.Text>
             <Card.Text className="h4">
               <LinkContainer to={`/product-details/${productId}`}>
-                <Button variant="outline-primary w-100">details</Button>
+                <Button variant="outline-primary w-100">
+                  details <i className="bi bi-eye"></i>
+                </Button>
               </LinkContainer>
             </Card.Text>
           </Card.Body>
           <ListGroup className=" text-center w-25">
             <ListGroup.Item>
-              <h3 >
+              <h3>
                 Statut:{" "}
                 {count > 1 ? (
                   <span className="text-success">en stock</span>
@@ -46,7 +48,11 @@ const ProductForListComponent = ({
                 )}
               </h3>
             </ListGroup.Item>
-            <ListGroup.Item className="text-center"><h3>Prix : <span>{price}</span></h3></ListGroup.Item>
+            <ListGroup.Item className="text-center">
+              <h3>
+                Prix : <span>{price}</span>
+              </h3>
+            </ListGroup.Item>
           </ListGroup>
         </Col>
       </Row>
